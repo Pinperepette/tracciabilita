@@ -65,20 +65,91 @@ Il Sistema di Tracciabilità è una soluzione completa per la gestione di materi
 ```bash
 ├── app.py
 ├── blueprints
-│   ├── arrivo_merci.py
-│   ├── clienti.py
-│   ├── ditta.py
-│   └── ...
+│   ├── __pycache__
+│   │   ├── arrivo_merci.cpython-310.pyc
+│   │   ├── clienti.cpython-310.pyc
+│   │   ├── ditta.cpython-310.pyc
+│   │   ├── fornitori.cpython-310.pyc
+│   │   ├── listino.cpython-310.pyc
+│   │   ├── materie_prime.cpython-310.pyc
+│   │   ├── merce_in_uscita.cpython-310.pyc
+│   │   ├── merci.cpython-310.pyc
+│   │   ├── prodotti.cpython-310.pyc
+│   │   ├── produzione.cpython-310.pyc
+│   │   ├── rappresentanti.cpython-310.pyc
+│   │   └── ricerca.cpython-310.pyc
+│   ├── arrivo_merci.py
+│   ├── clienti.py
+│   ├── ditta.py
+│   ├── fornitori.py
+│   ├── listino.py
+│   ├── materie_prime.py
+│   ├── merce_in_uscita.py
+│   ├── merci.py
+│   ├── prodotti.py
+│   ├── produzione.py
+│   ├── rappresentanti.py
+│   └── ricerca.py
+├── create_db.py
 ├── database
-│   └── tracabilita.db
+│   └── tracabilita.db
+├── jupyter.ipynb
 ├── static
-│   ├── css
-│   └── schede_tecniche_materie_prime
-├── templates
-│   ├── arrivo_merci
-│   ├── clienti
-│   └── ...
-└── README.md
+│   ├── css
+│   │   └── style.css
+│   ├── documenti
+│   └── schede_tecniche_materie_prime
+└── templates
+    ├── arrivo_merci
+    │   ├── aggiungi_arrivo.html
+    │   ├── aggiungi_controllo.html
+    │   ├── arrivo_merci.html
+    │   └── scheda_arrivo.html
+    ├── base.html
+    ├── clienti
+    │   ├── aggiungi_cliente.html
+    │   ├── aggiungi_destinazione.html
+    │   └── clienti.html
+    ├── ditta
+    │   └── gestione_ditta.html
+    ├── fornitori
+    │   ├── aggiungi_fornitore.html
+    │   └── fornitori.html
+    ├── index.html
+    ├── listino
+    │   ├── aggiungi_listino.html
+    │   ├── dettagli_listino.html
+    │   └── listini.html
+    ├── materie_prime
+    │   ├── aggiungi_materia.html
+    │   └── materie_prime.html
+    ├── merce_in_uscita
+    │   ├── aggiungi_dettagli_merce_in_uscita.html
+    │   ├── aggiungi_merce_in_uscita.html
+    │   ├── documento.html
+    │   ├── merce_in_uscita.html
+    │   └── modifica_merce_in_uscita.html
+    ├── merci
+    │   ├── aggiungi_merce.html
+    │   ├── merci.html
+    │   └── modifica_merce.html
+    ├── prodotti
+    │   ├── aggiungi_prodotto.html
+    │   ├── modifica_ricetta.html
+    │   ├── prodotti.html
+    │   └── scheda_prodotto.html
+    ├── produzione
+    │   ├── aggiungi_produzione.html
+    │   ├── modifica_produzione.html
+    │   ├── produzione.html
+    │   └── scheda_produzione.html
+    ├── rappresentanti
+    │   ├── aggiungi_rappresentante.html
+    │   └── rappresentanti.html
+    └── ricerca
+        ├── magazzino.html
+        ├── matpri.html
+        └── matpri_risultati.html
 ```
 
 ### Licenza
