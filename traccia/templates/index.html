@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Tracciabilità{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Tracciabilità</h1>
+        <p class="lead">Benvenuti nel sistema di tracciabilità. Qui puoi gestire gli inserimenti di materie prime, fornitori, merci, rappresentanti, prodotti, clienti, e operazioni come l'arrivo merci e la produzione.</p>
+        <hr class="my-4">
+        
+        <h2>Inserimenti Base</h2>
+        <p>Clicca sui pulsanti qui sotto per gestire le categorie degli inserimenti base.</p>
+        
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('materie_prime.index') }}" role="button">Materie Prime</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-secondary btn-lg btn-block" href="{{ url_for('fornitori.index') }}" role="button">Fornitori</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-success btn-lg btn-block" href="{{ url_for('merci.index') }}" role="button">Gestione Merci</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-info btn-lg btn-block" href="{{ url_for('rappresentanti.index') }}" role="button">Rappresentanti</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-warning btn-lg btn-block" href="{{ url_for('prodotti.index') }}" role="button">Prodotti</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-dark btn-lg btn-block" href="{{ url_for('listino.index') }}" role="button">Listini</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-light btn-lg btn-block" href="{{ url_for('clienti.index') }}" role="button">Clienti</a> <!-- Aggiunto Clienti -->
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h2>Operazioni</h2>
+        <p>Clicca sui pulsanti qui sotto per gestire le operazioni.</p>
+        
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-dark btn-lg btn-block" href="{{ url_for('arrivo_merci.index') }}" role="button">Arrivo Merci</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-danger btn-lg btn-block" href="{{ url_for('produzione.index') }}" role="button">Produzione</a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-info btn-lg btn-block" href="{{ url_for('merce_in_uscita.index') }}" role="button">Merce in Uscita</a> <!-- Aggiunto Merce in Uscita -->
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h2>Ricerca</h2>
+        <p>Clicca sui pulsanti qui sotto per accedere alle funzioni di ricerca.</p>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('ricerca.magazzino') }}" role="button">Magazzino</a> <!-- Aggiunto Magazzino -->
+            </div>
+            <div class="col-md-3 mb-3">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url_for('ricerca.matpri') }}" role="button">Matpri</a>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Listini{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Listini</h2>
+    <a href="{{ url_for('listino.aggiungi_listino') }}" class="btn btn-success mb-3">Aggiungi Listino</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listino in listini %}
+            <tr>
+                <td>{{ listino['id'] }}</td>
+                <td>{{ listino['nome'] }}</td>
+                <td>{{ listino['descrizione'] }}</td>
+                <td>
+                    <a href="{{ url_for('listino.dettagli_listino', listino_id=listino['id']) }}" class="btn btn-info btn-sm">Dettagli</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

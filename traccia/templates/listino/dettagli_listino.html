@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Dettagli Listino{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Dettagli del Listino: {{ listino['nome'] }}</h2>
+
+    <form action="{{ url_for('listino.dettagli_listino', listino_id=listino['id']) }}" method="POST">
+        <div class="form-group">
+            <label for="prodotto_id">Prodotto</label>
+            <select class="form-control" id="prodotto_id" name="prodotto_id" required>
+                <option value="">-- Seleziona Prodotto --</option>
+                {% for prodotto in prodotti %}
+                <option value="{{ prodotto.id }}">{{ prodotto.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formato">Formato</label>
+            <select class="form-control" id="formato" name="formato" required>
+                <option value="pezzi">Pezzi</option>
+                <option value="grammi">Grammi</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="prezzo">Prezzo</label>
+            <input type="number" step="0.01" class="form-control" id="prezzo" name="prezzo" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Aggiungi Dettaglio</button>
+    </form>
+
+    <hr>
+
+    <h3 class="my-4">Dettagli del Listino</h3>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Prodotto</th>
+                <th>Formato</th>
+                <th>Prezzo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dettaglio in dettagli %}
+            <tr>
+                <td>{{ dettaglio['prodotto'] }}</td>
+                <td>{{ dettaglio['formato'] }}</td>
+                <td>{{ dettaglio['prezzo'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

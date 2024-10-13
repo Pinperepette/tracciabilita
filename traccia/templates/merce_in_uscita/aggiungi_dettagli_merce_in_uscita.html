@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Dettagli Merce in Uscita{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi Dettagli per Merce in Uscita #{{ merce_in_uscita_id }}</h2>
+
+    <form action="{{ url_for('merce_in_uscita.aggiungi_dettagli_merce_in_uscita', merce_in_uscita_id=merce_in_uscita_id) }}" method="POST">
+        <div class="form-group">
+            <label for="produzione_id">Prodotto</label>
+            <select class="form-control" id="produzione_id" name="produzione_id" required>
+                {% for produzione in produzioni %}
+                <option value="{{ produzione['id'] }}">{{ produzione['lotto'] }} - {{ produzione['prodotto_id'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantita">Quantità</label>
+            <input type="number" class="form-control" id="quantita" name="quantita" required>
+        </div>
+        <div class="form-group">
+            <label for="sconto">Sconto (%)</label>
+            <input type="text" class="form-control" id="sconto" name="sconto">
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Dettagli</button>
+    </form>
+{% endblock %}

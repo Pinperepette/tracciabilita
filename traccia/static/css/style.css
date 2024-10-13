@@ -1,0 +1,26 @@
+
+/* Stile per sticky footer */
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    flex: 1;
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    color: #6c757d;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+@media print {
+    .no-print {
+        display: none;
+    }
+}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Destinazione{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi Destinazione per Cliente #{{ cliente_id }}</h2>
+
+    <form action="{{ url_for('clienti.aggiungi_destinazione', cliente_id=cliente_id) }}" method="POST">
+        <div class="form-group">
+            <label for="destinazione">Nome Destinazione</label>
+            <input type="text" class="form-control" id="destinazione" name="destinazione" required>
+        </div>
+        <div class="form-group">
+            <label for="indirizzo">Indirizzo</label>
+            <input type="text" class="form-control" id="indirizzo" name="indirizzo" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
+    </form>
+{% endblock %}

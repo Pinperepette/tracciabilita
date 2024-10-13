@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Scheda Prodotto - {{ prodotto['nome'] }}{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Scheda Prodotto: {{ prodotto['nome'] }}</h2>
+
+    <h4>Informazioni di Produzione</h4>
+    <p>
+        Lotto: {{ produzione['lotto'] }}<br>
+        Data di Produzione: {{ produzione['data_produzione'] }}<br>
+        Scadenza: {{ produzione['scadenza'] }}
+    </p>
+
+    <h4>Ingredienti e Lotti delle Materie Prime</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ingrediente</th>
+                <th>Quantità (kg)</th>
+                <th>Lotto Materia Prima</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingrediente in ricetta %}
+            <tr>
+                <td>{{ ingrediente['nome_merce'] }}</td>
+                <td>{{ ingrediente['quantita'] }} kg</td>
+                <td>{{ ingrediente['lotto'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 class="my-4">Valori Nutrizionali Totali (per prodotto)</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Proteine (g)</th>
+                <th>Carboidrati (g)</th>
+                <th>Grassi (g)</th>
+                <th>Zuccheri (g)</th>
+                <th>Grassi Saturi (g)</th>
+                <th>Fibre Alimentari (g)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ valori_nutrizionali['proteine'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['carboidrati'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['grassi'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['zuccheri'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['grassi_saturi'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['fibre_alimentari'] | round(2) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pulsanti di Stampa e Torna alla lista prodotti -->
+    <div class="no-print text-right">
+        <button class="btn btn-primary" onclick="window.print()">Stampa</button>
+        <a href="{{ url_for('prodotti.index') }}" class="btn btn-secondary">Torna alla lista prodotti</a>
+    </div>
+{% endblock %}

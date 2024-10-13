@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Scheda Produzione: {{ prodotto['nome'] }} (Lotto: {{ produzione['lotto'] }}){% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Scheda Produzione: {{ prodotto['nome'] }} (Lotto: {{ produzione['lotto'] }})</h2>
+    
+    <h4>Informazioni di Produzione</h4>
+    <p>
+        Lotto: {{ produzione['lotto'] }}<br>
+        Data di Produzione: {{ produzione['data_produzione'] }}<br>
+        Scadenza: {{ produzione['scadenza'] }}
+    </p>
+
+    <h4>Materie Prime Utilizzate</h4>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Ingrediente</th>
+                <th>Quantità (kg)</th>
+                <th>Lotto Materia Prima</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in materie_prime %}
+            <tr>
+                <td>{{ materia['nome_merce'] }}</td>
+                <td>{{ materia['kg_utilizzati'] }} kg</td> <!-- Qui viene visualizzata la quantità -->
+                <td>{{ materia['lotto'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4>Valori Nutrizionali Totali (per produzione)</h4>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Proteine (g)</th>
+                <th>Carboidrati (g)</th>
+                <th>Grassi (g)</th>
+                <th>Zuccheri (g)</th>
+                <th>Grassi Saturi (g)</th>
+                <th>Fibre Alimentari (g)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ valori_nutrizionali['proteine'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['carboidrati'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['grassi'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['zuccheri'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['grassi_saturi'] | round(2) }}</td>
+                <td>{{ valori_nutrizionali['fibre_alimentari'] | round(2) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('produzione.index') }}" class="btn btn-secondary">Torna alla lista produzione</a>
+    <button onclick="window.print()" class="btn btn-primary">Stampa</button>
+{% endblock %}

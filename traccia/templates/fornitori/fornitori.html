@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Fornitori{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Fornitori</h2>
+    <a href="{{ url_for('fornitori.aggiungi_fornitore') }}" class="btn btn-success mb-3">Aggiungi Fornitore</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID Fornitore</th>
+                <th>Ragione Sociale</th>
+                <th>Indirizzo</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Descrizione</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fornitore in fornitori %}
+            <tr>
+                <td>{{ fornitore['id'] }}</td>
+                <td>{{ fornitore['ragione_sociale'] }}</td>
+                <td>{{ fornitore['indirizzo'] }}</td>
+                <td>{{ fornitore['email'] }}</td>
+                <td>{{ fornitore['telefono'] }}</td>
+                <td>{{ fornitore['descrizione'] }}</td>
+                <td>
+                    <a href="{{ url_for('fornitori.elimina_fornitore', id=fornitore['id']) }}" class="btn btn-danger btn-sm">Elimina</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

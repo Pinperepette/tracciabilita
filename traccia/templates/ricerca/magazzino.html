@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Magazzino{% endblock %}
+
+{% block content %}
+<h2 class="my-4">Magazzino: Materie Prime in Uso</h2>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nome Materia Prima</th>
+            <th>Totale Arrivato (Kg)</th>
+            <th>Totale Utilizzato (Kg)</th>
+            <th>Quantità Disponibile (Kg)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for materia in materie_in_uso %}
+        <tr>
+            <td>{{ materia['nome'] }}</td>
+            <td>{{ materia['totale_in_arrivo'] or 0 }} Kg</td>
+            <td>{{ materia['totale_utilizzato'] or 0 }} Kg</td>
+            <td>{{ materia['quantita_disponibile'] or 0 }} Kg</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary">Torna alla Home</a>
+{% endblock %}

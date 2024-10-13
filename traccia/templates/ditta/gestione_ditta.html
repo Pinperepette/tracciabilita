@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Ditta{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="my-4">Gestione Ditta</h2>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="ragione_sociale">Ragione Sociale</label>
+                <input type="text" class="form-control" id="ragione_sociale" name="ragione_sociale" 
+                       value="{{ ditta['ragione_sociale'] if ditta else '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="indirizzo">Indirizzo</label>
+                <input type="text" class="form-control" id="indirizzo" name="indirizzo" 
+                       value="{{ ditta['indirizzo'] if ditta else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="partita_iva">Partita IVA</label>
+                <input type="text" class="form-control" id="partita_iva" name="partita_iva" 
+                       value="{{ ditta['partita_iva'] if ditta else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="pec">PEC</label>
+                <input type="email" class="form-control" id="pec" name="pec" 
+                       value="{{ ditta['pec'] if ditta else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="sdi">Codice SDI</label>
+                <input type="text" class="form-control" id="sdi" name="sdi" 
+                       value="{{ ditta['sdi'] if ditta else '' }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salva</button>
+        </form>
+
+        {% if ditta %}
+        <hr>
+        <form method="POST" action="{{ url_for('ditta.elimina_ditta') }}">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger">Elimina Ditta</button>
+        </form>
+        {% endif %}
+    </div>
+{% endblock %}

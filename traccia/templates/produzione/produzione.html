@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Produzione{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Produzioni</h2>
+    <a href="{{ url_for('produzione.aggiungi_produzione') }}" class="btn btn-success mb-3">Aggiungi Produzione</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Prodotto</th>
+                <th>Data Produzione</th>
+                <th>Lotto</th>
+                <th>Scadenza</th>
+                <th>In Uso</th>
+                <th>Usato</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produzione in produzioni %}
+            <tr>
+                <td>{{ produzione['id'] }}</td>
+                <td>{{ produzione['prodotto'] }}</td>
+                <td>{{ produzione['data_produzione'] }}</td>
+                <td>{{ produzione['lotto'] }}</td>
+                <td>{{ produzione['scadenza'] }}</td>
+                <td>{{ 'Sì' if produzione['in_uso'] else 'No' }}</td>
+                <td>{{ 'Sì' if produzione['usato'] else 'No' }}</td>
+                <td>
+                    <a href="{{ url_for('produzione.modifica_produzione', id=produzione['id']) }}" class="btn btn-warning btn-sm">Modifica</a>
+                    <form action="{{ url_for('produzione.elimina_produzione', id=produzione['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                    <a href="{{ url_for('produzione.scheda_produzione', produzione_id=produzione['id']) }}" class="btn btn-info btn-sm">Scheda</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

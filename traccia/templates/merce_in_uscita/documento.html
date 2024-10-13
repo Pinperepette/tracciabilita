@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Fattura - {{ merce['numero_documento'] }}{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Fattura n. {{ merce['numero_documento'] }}</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Ditta</h4>
+            <p>
+                Ragione Sociale: {{ ditta['ragione_sociale'] }}<br>
+                Partita IVA: {{ ditta['partita_iva'] }}<br>
+                Indirizzo: {{ ditta['indirizzo'] }}<br>
+                PEC: {{ ditta['pec'] }}<br>
+                Codice SDI: {{ ditta['sdi'] }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Fornitore</h4>
+            <p>
+                Ragione Sociale: {{ merce['ragione_sociale'] }}<br>
+                Partita IVA: {{ merce['partita_iva'] }}<br>
+                Indirizzo: {{ merce['indirizzo'] }}<br>
+                PEC: {{ merce['pec'] }}<br>
+                Codice SDI: {{ merce['sdi'] }}
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h4>Destinazione</h4>
+            <p>
+                Destinazione: {{ merce['destinazione'] or 'Idem' }}<br>
+                Aspetto Esteriore dei Beni: {{ merce['aspetto_esteriore'] }}
+            </p>
+        </div>
+    </div>
+
+    <h4 class="my-4">Dettagli della Merce</h4>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Prodotto</th>
+                <th>Quantità</th>
+                <th>Prezzo Unitario</th>
+                <th>Sconto (%)</th>
+                <th>Prezzo Totale</th>
+                <th>IVA (%)</th>
+                <th>Totale con IVA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dettaglio in dettagli %}
+            <tr>
+                <td>{{ dettaglio['nome_prodotto'] }}</td>
+                <td>{{ dettaglio['quantita'] }}</td>
+                <td>{{ dettaglio['prezzo'] }} €</td>
+                <td>{{ dettaglio['sconto'] }}%</td>
+                <td>{{ (dettaglio['prezzo'] * dettaglio['quantita'] - (dettaglio['prezzo'] * dettaglio['quantita'] * (dettaglio['sconto'] / 100))) | round(2) }} €</td>
+                <td>{{ dettaglio['iva'] }}%</td>
+                <td>{{ ((dettaglio['prezzo'] * dettaglio['quantita'] - (dettaglio['prezzo'] * dettaglio['quantita'] * (dettaglio['sconto'] / 100))) + ((dettaglio['prezzo'] * dettaglio['quantita'] - (dettaglio['prezzo'] * dettaglio['quantita'] * (dettaglio['sconto'] / 100))) * (dettaglio['iva'] / 100))) | round(2) }} €</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Visualizzazione del Totale Fattura già calcolato -->
+    <h4 class="text-right">Totale Fattura: {{ totale_fattura }} €</h4>
+
+    <p><strong>Note:</strong> {{ merce['note'] }}</p>
+
+    <!-- Aggiungi il pulsante di stampa -->
+    <div class="no-print text-right">
+        <button class="btn btn-primary" onclick="window.print()">Stampa</button>
+        <a href="{{ url_for('merce_in_uscita.index') }}" class="btn btn-secondary">Torna alla lista</a>
+    </div>
+{% endblock %}

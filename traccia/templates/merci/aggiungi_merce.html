@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Merce{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi una nuova Merce</h2>
+
+    <form action="{{ url_for('merci.aggiungi_merce') }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nome_merce">Nome Merce</label>
+            <input type="text" class="form-control" id="nome_merce" name="nome_merce" required>
+        </div>
+        <div class="form-group">
+            <label for="materia_id">Materia Prima</label>
+            <select class="form-control" id="materia_id" name="materia_id" required>
+                {% for materia in materie_prime %}
+                <option value="{{ materia['id'] }}">{{ materia['nome'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fornitore_id">Fornitore</label>
+            <select class="form-control" id="fornitore_id" name="fornitore_id" required>
+                {% for fornitore in fornitori %}
+                <option value="{{ fornitore['id'] }}">{{ fornitore['ragione_sociale'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="prezzo_kg">Prezzo al Kg</label>
+            <input type="number" step="0.01" class="form-control" id="prezzo_kg" name="prezzo_kg">
+        </div>
+        <div class="form-group">
+            <label for="ue">UE</label>
+            <select class="form-control" id="ue" name="ue">
+                <option value="UE">UE</option>
+                <option value="non UE">Non UE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="proteine">Proteine (g)</label>
+            <input type="number" step="0.01" class="form-control" id="proteine" name="proteine">
+        </div>
+        <div class="form-group">
+            <label for="carboidrati">Carboidrati (g)</label>
+            <input type="number" step="0.01" class="form-control" id="carboidrati" name="carboidrati">
+        </div>
+        <div class="form-group">
+            <label for="grassi">Grassi (g)</label>
+            <input type="number" step="0.01" class="form-control" id="grassi" name="grassi">
+        </div>
+        <div class="form-group">
+            <label for="zuccheri">Zuccheri (g)</label>
+            <input type="number" step="0.01" class="form-control" id="zuccheri" name="zuccheri">
+        </div>
+        <div class="form-group">
+            <label for="grassi_saturi">Grassi Saturi (g)</label>
+            <input type="number" step="0.01" class="form-control" id="grassi_saturi" name="grassi_saturi">
+        </div>
+        <div class="form-group">
+            <label for="fibre_alimentari">Fibre Alimentari (g)</label>
+            <input type="number" step="0.01" class="form-control" id="fibre_alimentari" name="fibre_alimentari">
+        </div>
+        <div class="form-group">
+            <label for="scheda">Scheda Tecnica</label>
+            <input type="file" class="form-control-file" id="scheda" name="scheda">
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+    </form>
+{% endblock %}

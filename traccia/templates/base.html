@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <!-- Collegamento al file di stile personalizzato -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}Tracciabilità{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Tracciabilità</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <!-- Inserimenti Base -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBase" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Inserimenti Base
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownBase">
+                        <a class="dropdown-item" href="{{ url_for('ditta.gestione_ditta') }}">Gestione Ditta</a>
+                        <a class="dropdown-item" href="{{ url_for('materie_prime.index') }}">Materie Prime</a>
+                        <a class="dropdown-item" href="{{ url_for('fornitori.index') }}">Fornitori</a>
+                        <a class="dropdown-item" href="{{ url_for('prodotti.index') }}">Prodotti</a>
+                        <a class="dropdown-item" href="{{ url_for('rappresentanti.index') }}">Rappresentanti</a>
+                        <a class="dropdown-item" href="{{ url_for('merci.index') }}">Merci</a>
+                        <a class="dropdown-item" href="{{ url_for('listino.index') }}">Listini</a>
+                        <a class="dropdown-item" href="{{ url_for('clienti.index') }}">Clienti</a>
+                    </div>
+                </li>
+
+                <!-- Operazioni -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOperazioni" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Operazioni
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownOperazioni">
+                        <a class="dropdown-item" href="{{ url_for('arrivo_merci.index') }}">Arrivo Merci</a>
+                        <a class="dropdown-item" href="{{ url_for('produzione.index') }}">Produzione</a>
+                        <a class="dropdown-item" href="{{ url_for('merce_in_uscita.index') }}">Merce in Uscita</a>
+                    </div>
+                </li>
+
+                <!-- Ricerca -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRicerca" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ricerca
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownRicerca">
+                        <a class="dropdown-item" href="{{ url_for('ricerca.magazzino') }}">Magazzino</a>
+                        <a class="dropdown-item" href="{{ url_for('ricerca.matpri') }}">Matpri</a>
+                    </div>
+                </li>
+                
+                <!-- Home link separato -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 Gestione Tracciabilità. Tutti i diritti riservati {{ ditta['ragione_sociale'] }}</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

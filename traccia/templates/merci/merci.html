@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Merci{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Merci</h2>
+    <a href="{{ url_for('merci.aggiungi_merce') }}" class="btn btn-success mb-3">Aggiungi Merce</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID Merce</th>
+                <th>Nome Merce</th>
+                <th>Materia Prima</th>
+                <th>Fornitore</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for merce in merci %}
+            <tr>
+                <td>{{ merce['id'] }}</td>
+                <td>{{ merce['nome_merce'] }}</td>
+                <td>{{ merce['materia'] }}</td>
+                <td>{{ merce['fornitore'] }}</td>
+                <td>
+                    <a href="{{ url_for('merci.modifica_merce', id=merce['id']) }}" class="btn btn-warning btn-sm">Modifica</a>
+                    <!-- Form per eliminare la merce -->
+                    <form action="{{ url_for('merci.elimina_merce', id=merce['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

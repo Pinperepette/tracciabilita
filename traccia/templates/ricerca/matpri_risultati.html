@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Risultati Ricerca Matpri{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Risultati della ricerca per il lotto: {{ lotto }}</h2>
+
+    {% if materie_prime %}
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Materia Prima</th>
+                <th>Lotto Materia</th>
+                <th>Prodotto</th>
+                <th>Kg Utilizzati</th>
+                <th>Data di Produzione</th>
+                <th>Destinazione</th>
+                <th>Numero Documento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if materie_prime %}
+                {% for item in materie_prime %}
+                <tr>
+                    <td>{{ item['materia_prima'] }}</td>
+                    <td>{{ item['lotto_materia'] }}</td>
+                    <td>{{ item['prodotto'] }}</td>
+                    <td>{{ item['kg_utilizzati'] }} kg</td>
+                    <td>{{ item['data_produzione'] }}</td>
+                    <td>{{ item['destinazione'] }}</td>
+                    <td>{{ item['numero_documento'] }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="7" class="text-center">Nessun risultato trovato per il lotto inserito.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+    {% else %}
+        <p>Nessun risultato trovato per il lotto inserito.</p>
+    {% endif %}
+
+    <a href="{{ url_for('ricerca.matpri') }}" class="btn btn-secondary">Torna alla ricerca</a>
+{% endblock %}

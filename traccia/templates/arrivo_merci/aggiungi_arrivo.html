@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Arrivo Merci{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi un nuovo Arrivo Merci</h2>
+
+    <form action="{{ url_for('arrivo_merci.aggiungi_arrivo') }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="merce_id">Merce</label>
+            <select class="form-control" id="merce_id" name="merce_id" required>
+                {% for merce in merci %}
+                <option value="{{ merce['id'] }}">{{ merce['nome_merce'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="data_arrivo">Data di Arrivo</label>
+            <input type="date" class="form-control" id="data_arrivo" name="data_arrivo" required>
+        </div>
+        <div class="form-group">
+            <label for="kg_pezzi">Kg/Pezzi</label>
+            <input type="number" step="0.01" class="form-control" id="kg_pezzi" name="kg_pezzi" required>
+        </div>
+        <div class="form-group">
+            <label for="lotto">Lotto</label>
+            <input type="text" class="form-control" id="lotto" name="lotto" required>
+        </div>
+        <div class="form-group">
+            <label for="scadenza">Scadenza</label>
+            <input type="date" class="form-control" id="scadenza" name="scadenza">
+        </div>
+        <div class="form-group">
+            <label for="numero_documento">Numero Documento</label>
+            <input type="text" class="form-control" id="numero_documento" name="numero_documento">
+        </div>
+        <div class="form-group">
+            <label for="documento">Carica Documento (PDF)</label>
+            <input type="file" class="form-control-file" id="documento" name="documento">
+        </div>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="in_uso" name="in_uso">
+            <label class="form-check-label" for="in_uso">In Uso</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="usato" name="usato">
+            <label class="form-check-label" for="usato">Usato</label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Aggiungi</button>
+    </form>
+{% endblock %}

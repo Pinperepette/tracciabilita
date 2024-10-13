@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Scheda Arrivo Merce{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Scheda Arrivo Merce: {{ arrivo_merce['nome_merce'] }} (Lotto: {{ arrivo_merce['lotto'] }})</h2>
+
+    <h4>Informazioni dell'Arrivo</h4>
+    <ul>
+        <li><strong>Data di Arrivo:</strong> {{ arrivo_merce['data_arrivo'] }}</li>
+        <li><strong>Quantità (Kg/Pezzi):</strong> {{ arrivo_merce['kg_pezzi'] }}</li>
+        <li><strong>Lotto:</strong> {{ arrivo_merce['lotto'] }}</li>
+        <li><strong>Data di Scadenza:</strong> {{ arrivo_merce['scadenza'] }}</li>
+        <li><strong>Numero Documento:</strong> {{ arrivo_merce['numero_documento'] }}</li>
+        <li><strong>Note:</strong> {{ arrivo_merce['note'] }}</li>
+    </ul>
+
+    <hr>
+
+    <h4>Controlli Effettuati</h4>
+    {% if controlli %}
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Verifica Documenti</th>
+                    <th>Imballaggi integri</th>
+                    <th>Temperatura</th>
+                    <th>Igiene del Mezzo</th>
+                    <th>Ispezione Visiva</th>
+                    <th>Verifica Scadenza</th>
+                    <th>Non Conformità</th>
+                    <th>Note Controllo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for controllo in controlli %}
+                <tr>
+                    <td>{{ 'Sì' if controllo['verifica_documenti'] else 'No' }}</td>
+                    <td>{{ 'Sì' if controllo['imballaggi_integri'] else 'No' }}</td>
+                    <td>{{ controllo['temperatura'] if controllo['temperatura'] else 'N/A' }} °C</td>
+                    <td>{{ 'Sì' if controllo['igiene_mezzo'] else 'No' }}</td>
+                    <td>{{ 'Sì' if controllo['ispezione_visiva'] else 'No' }}</td>
+                    <td>{{ 'Sì' if controllo['verifica_scadenza'] else 'No' }}</td>
+                    <td>{{ controllo['non_conformita'] or 'Nessuna' }}</td>
+                    <td>{{ controllo['note_controllo'] or 'Nessuna' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Non sono stati effettuati controlli per questo arrivo merce.</p>
+    {% endif %}
+
+    <!-- Pulsanti con la classe no-print per evitare che siano stampati -->
+    <a href="{{ url_for('arrivo_merci.index') }}" class="btn btn-secondary no-print">Torna alla lista</a>
+    <button class="btn btn-primary no-print" onclick="window.print()">Stampa</button>
+{% endblock %}

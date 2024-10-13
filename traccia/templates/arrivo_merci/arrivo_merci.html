@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Arrivo Merci{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Arrivi Merci</h2>
+    <a href="{{ url_for('arrivo_merci.aggiungi_arrivo') }}" class="btn btn-success mb-3">Aggiungi Arrivo</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Merce</th>
+                <th>Data Arrivo</th>
+                <th>Kg/Pezzi</th>
+                <th>Lotto</th>
+                <th>Scadenza</th>
+                <th>Documento</th>
+                <th>In Uso</th>
+                <th>Usato</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for arrivo in arrivi %}
+            <tr>
+                <td>{{ arrivo['id'] }}</td>
+                <td>{{ arrivo['nome_merce'] }}</td>
+                <td>{{ arrivo['data_arrivo'] }}</td>
+                <td>{{ arrivo['kg_pezzi'] }}</td>
+                <td>{{ arrivo['lotto'] }}</td>
+                <td>{{ arrivo['scadenza'] }}</td>
+                <td>
+                    {% if arrivo['documento_pdf'] %}
+                    <a href="{{ url_for('static', filename='documenti/' ~ arrivo['documento_pdf']) }}" target="_blank">Vedi Documento</a>
+                    {% else %}
+                    Nessun documento
+                    {% endif %}
+                </td>
+                <td>{{ 'Sì' if arrivo['in_uso'] else 'No' }}</td>
+                <td>{{ 'Sì' if arrivo['usato'] else 'No' }}</td>
+                <td>
+                    <form action="{{ url_for('arrivo_merci.elimina_arrivo', id=arrivo['id']) }}" method="POST" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo arrivo e i suoi controlli associati?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                    
+                    <a href="{{ url_for('arrivo_merci.aggiungi_controllo', arrivo_merce_id=arrivo['id']) }}" class="btn btn-info btn-sm">Aggiungi Controllo</a>
+                    <a href="{{ url_for('arrivo_merci.mostra_scheda_arrivo', arrivo_merce_id=arrivo['id']) }}" class="btn btn-info btn-sm">Mostra Scheda</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

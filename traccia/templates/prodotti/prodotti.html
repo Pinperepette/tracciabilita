@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Prodotti{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Prodotti</h2>
+    <a href="{{ url_for('prodotti.aggiungi_prodotto') }}" class="btn btn-success mb-3">Aggiungi Prodotto</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>IVA</th>
+                <th>Unità</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prodotto in prodotti %}
+            <tr>
+                <td>{{ prodotto['id'] }}</td>
+                <td>{{ prodotto['nome'] }}</td>
+                <td>{{ prodotto['codice'] }}</td>
+                <td>{{ prodotto['descrizione'] }}</td>
+                <td>{{ prodotto['iva'] }}</td>
+                <td>{{ prodotto['unita'] }}</td>
+                <td>
+                    <a href="{{ url_for('prodotti.modifica_ricetta', prodotto_id=prodotto.id) }}" class="btn btn-warning btn-sm">Modifica Ricetta</a>
+                    <form action="{{ url_for('prodotti.elimina_prodotto', id=prodotto['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

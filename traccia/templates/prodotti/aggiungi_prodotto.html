@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Prodotto{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi un nuovo Prodotto</h2>
+
+    <form action="{{ url_for('prodotti.aggiungi_prodotto') }}" method="POST">
+        <div class="form-group">
+            <label for="nome">Nome Prodotto</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="codice">Codice Prodotto</label>
+            <input type="text" class="form-control" id="codice" name="codice" required>
+        </div>
+        <div class="form-group">
+            <label for="descrizione">Descrizione</label>
+            <textarea class="form-control" id="descrizione" name="descrizione" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="iva">IVA (%)</label>
+            <input type="number" step="0.01" class="form-control" id="iva" name="iva">
+        </div>
+        <div class="form-group">
+            <label for="unita">Unità</label>
+            <select class="form-control" id="unita" name="unita" required>
+                <option value="Peso">Peso</option>
+                <option value="Pezzi">Pezzi</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+    </form>
+{% endblock %}
+

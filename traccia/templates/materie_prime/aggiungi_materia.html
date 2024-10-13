@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Materia Prima{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi una nuova Materia Prima</h2>
+
+    <form action="{{ url_for('materie_prime.aggiungi_materia') }}" method="POST">
+        <div class="form-group">
+            <label for="nome">Nome Materia Prima</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Merce in Uscita{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Merce in Uscita</h2>
+    <a href="{{ url_for('merce_in_uscita.aggiungi_merce_in_uscita') }}" class="btn btn-success mb-3">Aggiungi Merce in Uscita</a>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-info">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Tipo Documento</th>
+                <th>Numero Documento</th>
+                <th>Cliente</th>
+                <th>Destinazione</th>
+                <th>Aspetto Est.</th>
+                <th>Note</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for merce in merce_in_uscita %}
+            <tr>
+                <td>{{ merce['id'] }}</td>
+                <td>{{ merce['data'] }}</td>
+                <td>{{ merce['tipo_documento'] }}</td>
+                <td>{{ merce['numero_documento'] }}</td>
+                <td>{{ merce['ragione_sociale'] }}</td>
+                <td>{{ merce['destinazione'] }}</td>
+                <td>{{ merce['aspetto_esteriore'] }}</td>
+                <td>{{ merce['note'] }}</td>
+                <td>
+                    <a href="{{ url_for('merce_in_uscita.aggiungi_dettagli_merce_in_uscita', merce_in_uscita_id=merce['id']) }}" class="btn btn-info btn-sm">Aggiungi Dettagli</a>
+                    <a href="{{ url_for('merce_in_uscita.mostra_documento', merce_in_uscita_id=merce['id']) }}" class="btn btn-primary btn-sm">Mostra Documento</a>
+                    <a href="{{ url_for('merce_in_uscita.modifica_merce_in_uscita', merce_in_uscita_id=merce['id']) }}" class="btn btn-warning btn-sm">Modifica</a>
+                    <form action="{{ url_for('merce_in_uscita.elimina_merce_in_uscita', merce_in_uscita_id=merce['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

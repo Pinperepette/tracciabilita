@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Produzione{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi una nuova Produzione</h2>
+
+    <form action="{{ url_for('produzione.aggiungi_produzione') }}" method="POST">
+        <div class="form-group">
+            <label for="data_produzione">Data di Produzione</label>
+            <input type="date" class="form-control" id="data_produzione" name="data_produzione" required>
+        </div>
+        <div class="form-group">
+            <label for="lotto">Lotto</label>
+            <input type="text" class="form-control" id="lotto" name="lotto" required>
+        </div>
+        <div class="form-group">
+            <label for="prodotto_id">Prodotto</label>
+            <select class="form-control" id="prodotto_id" name="prodotto_id" onchange="caricaMateriePrime()" required>
+                <option value="">-- Seleziona Prodotto --</option>
+                {% for prodotto in prodotti %}
+                <option value="{{ prodotto.id }}">{{ prodotto.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="scadenza">Scadenza</label>
+            <input type="date" class="form-control" id="scadenza" name="scadenza">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="in_uso" name="in_uso">
+            <label class="form-check-label" for="in_uso">In Uso</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="usato" name="usato">
+            <label class="form-check-label" for="usato">Usato</label>
+        </div>
+        <hr class="my-4">
+
+        <!-- Dettagli Produzione (Materie Prime Utilizzate) -->
+        <div class="form-group">
+            <label>Materie Prime Utilizzate</label>
+            <div id="dettagli-produzione-container">
+                <!-- Le materie prime verranno caricate qui dinamicamente -->
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Aggiungi Produzione</button>
+    </form>
+
+    <script>
+        function caricaMateriePrime() {
+            const prodotto_id = document.getElementById('prodotto_id').value;
+            const container = document.getElementById('dettagli-produzione-container');
+
+            if (prodotto_id) {
+                fetch(`/api/materie_prime_in_uso/${prodotto_id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        container.innerHTML = ''; // Rimuovi eventuali elementi esistenti
+
+                        data.forEach(materia => {
+                            const row = document.createElement('div');
+                            row.classList.add('row', 'mb-2');
+                            row.innerHTML = `
+                                <div class="col-md-6">
+                                    <input type="hidden" name="materia_id" value="${materia.materia_id}">
+                                    <input type="text" class="form-control" value="${materia.nome_merce}" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" step="0.01" class="form-control" name="kg_utilizzati" placeholder="Kg utilizzati">
+                                </div>
+                            `;
+                            container.appendChild(row);
+                        });
+                    });
+            } else {
+                container.innerHTML = ''; // Rimuovi eventuali elementi esistenti se il prodotto non è selezionato
+            }
+        }
+    </script>
+{% endblock %}

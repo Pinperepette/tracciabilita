@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Aggiungi Merce in Uscita{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Aggiungi Merce in Uscita</h2>
+
+    <form action="{{ url_for('merce_in_uscita.aggiungi_merce_in_uscita') }}" method="POST">
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" class="form-control" id="data" name="data" required>
+        </div>
+        <div class="form-group">
+            <label for="tipo_documento">Tipo Documento</label>
+            <select class="form-control" id="tipo_documento" name="tipo_documento" required>
+                <option value="Fattura">Fattura</option>
+                <option value="DDT">DDT</option>
+                <option value="Nota di Credito">Nota di Credito</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numero_documento">Numero Documento</label>
+            <input type="text" class="form-control" id="numero_documento" name="numero_documento" required>
+        </div>
+        <div class="form-group">
+            <label for="cliente_id">Cliente</label>
+            <select class="form-control" id="cliente_id" name="cliente_id" required>
+                {% for cliente in clienti %}
+                <option value="{{ cliente['id'] }}">{{ cliente['ragione_sociale'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="destinazione">Destinazione</label>
+            <input type="text" class="form-control" id="destinazione" name="destinazione" placeholder="Se uguale al cliente, scrivi 'idem'">
+        </div>
+        <div class="form-group">
+            <label for="aspetto_esteriore">Aspetto Esteriore dei Beni</label>
+            <input type="text" class="form-control" id="aspetto_esteriore" name="aspetto_esteriore">
+        </div>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <textarea class="form-control" id="note" name="note"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Merce in Uscita</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestione Clienti{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Elenco Clienti</h2>
+    <a href="{{ url_for('clienti.aggiungi_cliente') }}" class="btn btn-success mb-3">Aggiungi Cliente</a>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Ragione Sociale</th>
+                <th>Partita IVA</th>
+                <th>PEC</th>
+                <th>SDI</th>
+                <th>Indirizzo</th>
+                <th>Listino</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clienti %}
+            <tr>
+                <td>{{ cliente['id'] }}</td>
+                <td>{{ cliente['ragione_sociale'] }}</td>
+                <td>{{ cliente['partita_iva'] }}</td>
+                <td>{{ cliente['pec'] }}</td>
+                <td>{{ cliente['sdi'] }}</td>
+                <td>{{ cliente['indirizzo'] }}</td>
+                <td>{{ cliente['listino_nome'] }}</td>
+                <td>
+                    <a href="{{ url_for('clienti.aggiungi_destinazione', cliente_id=cliente['id']) }}" class="btn btn-info btn-sm">Aggiungi Destinazione</a>
+                    <form action="{{ url_for('clienti.elimina_cliente', cliente_id=cliente['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

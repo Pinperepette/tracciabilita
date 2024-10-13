@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Ricerca Matpri{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Ricerca per Lotto di Materia Prima</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="lotto">Inserisci il lotto della materia prima:</label>
+            <input type="text" class="form-control" id="lotto" name="lotto" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cerca</button>
+    </form>
+{% endblock %}

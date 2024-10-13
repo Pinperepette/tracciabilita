@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifica Ricetta - {{ prodotto.nome }}{% endblock %}
+
+{% block content %}
+    <h2 class="my-4">Modifica Ricetta per {{ prodotto.nome }}</h2>
+
+    <form action="{{ url_for('prodotti.modifica_ricetta', prodotto_id=prodotto.id) }}" method="POST">
+        <div class="form-group">
+            <label>Materie Prime</label>
+            <div id="ricetta-container">
+                {% for item in ricetta %}
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <select class="form-control" name="materia_id">
+                            {% for materia in materie_prime %}
+                            <option value="{{ materia.id }}" {% if materia.id == item.materia_id %}selected{% endif %}>{{ materia.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" step="0.01" class="form-control" name="quantita" value="{{ item.quantita }}" placeholder="Quantità">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger" onclick="rimuoviMateria(this)">Rimuovi</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="btn btn-info" onclick="aggiungiMateria()">Aggiungi Materia Prima</button>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Salva Ricetta</button>
+    </form>
+
+    <script>
+        function aggiungiMateria() {
+            const container = document.getElementById('ricetta-container');
+            const row = document.createElement('div');
+            row.classList.add('row', 'mb-2');
+            row.innerHTML = `
+                <div class="col-md-6">
+                    <select class="form-control" name="materia_id">
+                        {% for materia in materie_prime %}
+                        <option value="{{ materia.id }}">{{ materia.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" step="0.01" class="form-control" name="quantita" placeholder="Quantità">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger" onclick="rimuoviMateria(this)">Rimuovi</button>
+                </div>
+            `;
+            container.appendChild(row);
+        }
+
+        function rimuoviMateria(button) {
+            button.closest('.row').remove();
+        }
+    </script>
+{% endblock %}
